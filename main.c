@@ -47,10 +47,21 @@ void main(int argc, char **argv)
 	printf("w=%d,h=%d\n", w, h);
 
 	buffer[0] = htonl(0xa2);
-	buffer[2] = htonl(990);
-	buffer[3] = htonl(991);
+	buffer[2] = htonl(616);
+	buffer[3] = htonl(155);
 	if (16 != send(fd, buffer, 16, 0)) {
 		printf("Failed send CMD_SET\n");
+	}
+
+	int len;
+	while (1) {
+		len = recv(fd, buffer, 16, 0);
+		if (len != 16) {
+			printf("len=%d\n", len);
+			printf("Failed recv report event\n");
+		}
+
+		printf("(%d,%d)\n", ntohl(buffer[2]), ntohl(buffer[3]));
 	}
 
 	close(fd);
