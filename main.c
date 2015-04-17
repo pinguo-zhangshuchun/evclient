@@ -59,6 +59,7 @@ void main(int argc, char **argv)
 		if (len != 16) {
 			printf("len=%d\n", len);
 			printf("Failed recv report event\n");
+			break;
 		}
 
 		printf("(%d,%d)\n", ntohl(buffer[2]), ntohl(buffer[3]));
